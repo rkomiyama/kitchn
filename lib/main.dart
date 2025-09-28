@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ArcaneApp(
-    title: 'My App',
+    title: 'kitchn',
     home: MyHomePage(),
     theme: ArcaneTheme(
         scheme: ContrastedColorScheme.fromScheme(ColorSchemes.blue),

@@ -1,5 +1,10 @@
 import 'package:arcane/arcane.dart';
 
+import 'browse_recipes.dart';
+import 'my_recipes.dart';
+import 'cooking_session.dart';
+import 'join_session.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -7,7 +12,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>  {
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +24,26 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Expanded(
                 child: BasicCard(
-                    title: Center(child: Basic(title: Text("Browse recipes"), leading: Icon(Icons.magnifying_glass))),
+                  title: Center(child: Basic(title: Text("Browse recipes"), leading: Icon(Icons.magnifying_glass))),
+                  onPressed: () => Arcane.push(context, BrowseRecipesScreen()),
                 ).withMargin(all: 16),
               ),
               Expanded(
                 child: BasicCard(
-                    title: Center(child: Basic(title: Text("My recipes"), leading: Icon(Icons.book_open))),
+                  title: Center(child: Basic(title: Text("My recipes"), leading: Icon(Icons.book_open))),
+                  onPressed: () => Arcane.push(context, MyRecipesScreen()),
                 ).withMargin(all: 16),
               ),
               Expanded(
                 child: BasicCard(
-                    title: Center(child: Basic(title: Text("Start cooking session"), leading: Icon(Icons.cooking_pot))),
+                  title: Center(child: Basic(title: Text("Start cooking session"), leading: Icon(Icons.cooking_pot))),
+                  onPressed: () => Arcane.push(context, CookingSessionScreen()),
                 ).withMargin(all: 16),
               ),
               Expanded(
                 child: BasicCard(
-                    title: Center(child: Basic(title: Text("Join with Code/Link"), leading: Icon(Icons.people_ionic))),
+                  title: Center(child: Basic(title: Text("Join with Code/Link"), leading: Icon(Icons.people_ionic))),
+                  onPressed: () => Arcane.push(context, JoinSessionScreen()),
                 ).withMargin(all: 16),
               ),
           ]
