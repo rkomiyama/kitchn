@@ -31,6 +31,21 @@
 
   <title>kitchn</title>
   <link rel="manifest" href="manifest.json">
+    <style>
+        @media (prefers-color-scheme: dark) {
+          /* Styles for dark mode */
+          body {
+            background-color: #000;
+          }
+        }
+
+        @media (prefers-color-scheme: light) {
+          /* Styles for light mode */
+          body {
+            background-color: #fff;
+          }
+        }
+    </style>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
