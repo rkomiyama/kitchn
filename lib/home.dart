@@ -17,11 +17,30 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return const Center(
-      child: Text(
-        'Hello, world!',
-        style: TextStyle(color: Colors.blue),
-      ),
+    return Scaffold(
+      child: Center(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+            BasicCard(
+                title: Text("Browse recipes"),
+                leading: Icon(Icons.magnifying_glass),
+            ),
+            BasicCard(
+                title: Text("My recipes"),
+                leading: Icon(Icons.book_open)
+            ),
+            BasicCard(
+                title: Text("Start cooking session"),
+                leading: Icon(Icons.cooking_pot)
+            ),
+            BasicCard(
+                title: Text("Join with Code/Link"),
+                leading: Icon(Icons.people_ionic)
+            ),
+          ]
+        )
+      )
     );
   }
 }
