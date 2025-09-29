@@ -68,6 +68,5 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
             )
         )
     );
-    // return Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context),));
   }
 }
