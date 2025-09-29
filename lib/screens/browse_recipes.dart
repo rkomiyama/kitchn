@@ -4,7 +4,7 @@ import 'package:arcane/arcane.dart';
 import 'package:http/http.dart' as http;
 import 'package:kitchn/auth/secrets.dart';
 
-import 'models/recipe.dart';
+import '../models/recipe.dart';
 
 var requestUrl = Uri.https(
     'api.spoonacular.com',
@@ -51,8 +51,13 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
-                Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRecipes())),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
+                    Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRecipes())),
+                  ]
+                ),
                 ...recipes.map((recipe) =>
                     BasicCard(
                       leading: CardImage(image: Image.network(

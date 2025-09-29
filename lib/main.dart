@@ -1,6 +1,6 @@
 import 'package:arcane/arcane.dart';
 
-import 'home.dart';
+import 'screens/home.dart';
 void main() {
   runApp(
     'kitchn',
