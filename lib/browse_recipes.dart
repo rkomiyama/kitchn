@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:arcane/arcane.dart';
 import 'package:http/http.dart' as http;
 import 'package:kitchn/auth/secrets.dart';
+
+import 'models/recipe.dart';
 
 var requestUrl = Uri.https(
     'api.spoonacular.com',
@@ -34,8 +35,11 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
   void _loadRecipes() async {
     http.Response response = await http.get(requestUrl);
     setState(() {
+      recipes = [];
       final recipesList = jsonDecode(response.body);
-      recipes = recipesList['recipes'];
+      recipesList['recipes'].forEach((recipe) => {
+        recipes.add(Recipe.fromJson(recipe))
+      });
     });
   }
 
@@ -52,12 +56,12 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                 ...recipes.map((recipe) =>
                     BasicCard(
                       leading: CardImage(image: Image.network(
-                          recipe['image'],
+                          recipe.imageUrl,
                           fit:BoxFit.contain,
                           height: 150.0,
                           width: 150.0
                       )),
-                      title: Text(recipe['title'])
+                      title: Text(recipe.title)
                     )
                 ),
               ]
