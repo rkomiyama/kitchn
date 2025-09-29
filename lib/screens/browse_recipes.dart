@@ -13,7 +13,7 @@ var requestUrl = Uri.https(
       "apiKey": spoonacularSecretKey,
       "number": "10"
     });
-List<dynamic> recipes = [];
+List<Recipe>? recipes;
 
 class BrowseRecipesScreen extends StatefulWidget {
   const BrowseRecipesScreen({super.key});
@@ -27,7 +27,7 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
   void initState() {
     super.initState();
 
-    if (recipes == []) {
+    if (recipes == null) {
       _loadRecipes();
     }
   }
@@ -35,10 +35,12 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
   void _loadRecipes() async {
     http.Response response = await http.get(requestUrl);
     setState(() {
-      recipes = [];
+      if (recipes == null || recipes != []) {
+        recipes = [];
+      }
       final recipesList = jsonDecode(response.body);
       recipesList['recipes'].forEach((recipe) => {
-        recipes.add(Recipe.fromJson(recipe))
+        recipes?.add(Recipe.fromJson(recipe))
       });
     });
   }
@@ -58,7 +60,7 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                     Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRecipes())),
                   ]
                 ).pad(16),
-                ...recipes.map((recipe) =>
+                ...?recipes?.mapList((recipe) =>
                     BasicCard(
                       leading: CardImage(image: Image.network(
                           recipe.imageUrl,
