@@ -57,7 +57,7 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                     Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
                     Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRecipes())),
                   ]
-                ),
+                ).pad(16),
                 ...recipes.map((recipe) =>
                     BasicCard(
                       leading: CardImage(image: Image.network(
