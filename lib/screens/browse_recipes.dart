@@ -1,18 +1,9 @@
-import 'dart:convert';
-
 import 'package:arcane/arcane.dart';
-import 'package:http/http.dart' as http;
 import 'package:kitchn/auth/secrets.dart';
 
 import '../models/recipe.dart';
+import '../services/spoonacular.dart';
 
-var requestUrl = Uri.https(
-    'api.spoonacular.com',
-    'recipes/random',
-    {
-      "apiKey": spoonacularSecretKey,
-      "number": "10"
-    });
 List<Recipe>? recipes;
 
 class BrowseRecipesScreen extends StatefulWidget {
@@ -28,20 +19,17 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
     super.initState();
 
     if (recipes == null) {
-      _loadRecipes();
+      _loadRandomRecipes();
     }
   }
 
-  void _loadRecipes() async {
-    http.Response response = await http.get(requestUrl);
+  void _loadRandomRecipes() async {
+    if (recipes == null || recipes != []) {
+      recipes = [];
+    }
+    recipes = await getRandomRecipes();
     setState(() {
-      if (recipes == null || recipes != []) {
-        recipes = [];
-      }
-      final recipesList = jsonDecode(response.body);
-      recipesList['recipes'].forEach((recipe) => {
-        recipes?.add(Recipe.fromJson(recipe))
-      });
+      recipes;
     });
   }
 
@@ -57,7 +45,7 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
-                    Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRecipes())),
+                    Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRandomRecipes())),
                   ]
                 ).pad(16),
                 ...?recipes?.mapList((recipe) =>
