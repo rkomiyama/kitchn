@@ -1,3 +1,5 @@
+import 'package:html2md/html2md.dart' as html2md;
+
 class Recipe {
   final String title;
   final String imageUrl;
@@ -29,7 +31,7 @@ class Recipe {
       } => Recipe(
         title: title,
         imageUrl: imageUrl,
-        summary: summary,
+        summary: html2md.convert(summary),
       ),
       _ => throw const FormatException('Failed to load recipe.'),
     };

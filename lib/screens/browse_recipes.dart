@@ -1,5 +1,5 @@
 import 'package:arcane/arcane.dart';
-import 'package:kitchn/auth/secrets.dart';
+import 'package:kitchn/screens/recipe/recipe_main.dart';
 
 import '../models/recipe.dart';
 import '../services/spoonacular.dart';
@@ -38,29 +38,28 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
     return Scaffold(
         child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
-                    Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRandomRecipes())),
-                  ]
-                ).pad(16),
-                ...?recipes?.mapList((recipe) =>
-                    BasicCard(
-                      leading: CardImage(image: Image.network(
-                          recipe.imageUrl,
-                          fit:BoxFit.contain,
-                          height: 150.0,
-                          width: 150.0
-                      )),
-                      title: Text(recipe.title),
-                      subtitle: Text(recipe.summary),
-                    )
-                ),
-              ]
+                children: <Widget>[
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
+                        Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRandomRecipes())),
+                      ]
+                  ).pad(16),
+                  ...?recipes?.mapList((recipe) =>
+                      SizedBox(width: 600, child: BasicCard(
+                        spanned: true,
+                        leading: CardImage(image: Image.network(
+                            recipe.imageUrl,
+                            fit:BoxFit.contain,
+                            height: 150.0,
+                            width: 150.0
+                        )),
+                        title: Text(recipe.title),
+                        onPressed: () => Arcane.push(context, RecipeMainScreen(recipe: recipe)),
+                      )).withMargin(all: 8),
+                  ),
+                ]
             )
         )
     );

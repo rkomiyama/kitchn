@@ -24,25 +24,25 @@ class _MyHomePageState extends State<MyHomePage>  {
             children: <Widget>[
               Expanded(
                 child: BasicCard(
-                  title: Center(child: Basic(title: Text("Browse recipes"), leading: Icon(Icons.magnifying_glass))),
+                  title: Basic(title: Text("Browse recipes"), leading: Icon(Icons.magnifying_glass)),
                   onPressed: () => Arcane.push(context, BrowseRecipesScreen()),
                 ).withMargin(all: 16),
               ),
               Expanded(
                 child: BasicCard(
-                  title: Center(child: Basic(title: Text("My recipes"), leading: Icon(Icons.book_open))),
+                  title: Basic(title: Text("My recipes"), leading: Icon(Icons.book_open)),
                   onPressed: () => Arcane.push(context, MyRecipesScreen()),
                 ).withMargin(all: 16),
               ),
               Expanded(
                 child: BasicCard(
-                  title: Center(child: Basic(title: Text("Start cooking session"), leading: Icon(Icons.cooking_pot))),
+                  title: Basic(title: Text("Start cooking session"), leading: Icon(Icons.cooking_pot)),
                   onPressed: () => Arcane.push(context, CookingSessionScreen()),
                 ).withMargin(all: 16),
               ),
               Expanded(
                 child: BasicCard(
-                  title: Center(child: Basic(title: Text("Join with Code/Link"), leading: Icon(Icons.people_ionic))),
+                  title: Basic(title: Text("Join with Code/Link"), leading: Icon(Icons.people_ionic)),
                   onPressed: () => Arcane.push(context, JoinSessionScreen()),
                 ).withMargin(all: 16),
               ),
