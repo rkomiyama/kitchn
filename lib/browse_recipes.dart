@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:arcane/arcane.dart';
 import 'package:http/http.dart' as http;
@@ -11,7 +12,7 @@ var requestUrl = Uri.https(
       "apiKey": spoonacularSecretKey,
       "number": "10"
     });
-var recipes = [];
+List<dynamic> recipes = [];
 
 class BrowseRecipesScreen extends StatefulWidget {
   const BrowseRecipesScreen({super.key});
@@ -25,7 +26,9 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
   void initState() {
     super.initState();
 
-    _loadRecipes();
+    if (recipes == []) {
+      _loadRecipes();
+    }
   }
 
   void _loadRecipes() async {
@@ -37,12 +40,6 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
   }
 
   @override
-  void dispose() {
-    recipes = [];
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         child: SingleChildScrollView(
@@ -50,6 +47,8 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
+                Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
+                Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRecipes())),
                 ...recipes.map((recipe) =>
                     BasicCard(
                       leading: CardImage(image: Image.network(
@@ -61,7 +60,6 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                       title: Text(recipe['title'])
                     )
                 ),
-                Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context)))
               ]
             )
         )
