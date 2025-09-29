@@ -66,7 +66,8 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                           height: 150.0,
                           width: 150.0
                       )),
-                      title: Text(recipe.title)
+                      title: Text(recipe.title),
+                      subtitle: Text(recipe.summary),
                     )
                 ),
               ]
