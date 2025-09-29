@@ -47,11 +47,20 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
     return Scaffold(
         child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                ...recipes.map((recipe) => BasicCard(
-                    leading: CardImage(image: Image.network(recipe['image'])),
-                    title: Text(recipe['title'])
-                )),
+                ...recipes.map((recipe) =>
+                    BasicCard(
+                      leading: CardImage(image: Image.network(
+                          recipe['image'],
+                          fit:BoxFit.contain,
+                          height: 150.0,
+                          width: 150.0
+                      )),
+                      title: Text(recipe['title'])
+                    )
+                ),
                 Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context)))
               ]
             )
