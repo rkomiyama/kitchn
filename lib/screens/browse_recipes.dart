@@ -1,9 +1,9 @@
 import 'package:arcane/arcane.dart';
 import 'package:kitchn/screens/recipe/recipe_main.dart';
-import 'package:flutter_thumbhash/flutter_thumbhash.dart';
 
 import '../models/recipe.dart';
 import '../services/spoonacular.dart';
+import '../widgets/navbar.dart';
 
 List<Recipe>? recipes;
 
@@ -37,13 +37,13 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        headers: [NavBar()],
         child: SingleChildScrollView(
             child: Column(
                 children: <Widget>[
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
                         Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRandomRecipes())),
                       ]
                   ).pad(16),

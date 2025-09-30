@@ -13,18 +13,12 @@ class RecipeMainScreen extends StatefulWidget {
 }
 
 class _RecipeMainScreenState extends State<RecipeMainScreen> {
-  Widget buildMarkdown() {
+  Widget buildMarkdown(BuildContext context) {
     return (SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context))),
-                  ]
-              ).pad(16),
               MarkdownBlock(data: widget.recipe.summary,)
             ],
           )
@@ -33,5 +27,19 @@ class _RecipeMainScreenState extends State<RecipeMainScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(child: buildMarkdown());
+  Widget build(BuildContext context) => Scaffold(
+      headers: [
+        AppBar(
+          leading: [
+            OutlineButton(
+              density: ButtonDensity.icon,
+              onPressed: () => Arcane.pop(context),
+              child: const Icon(Icons.arrow_back_ionic),
+            ),
+          ],
+          title: Center(child: Text("kitchn")),
+        ),
+      ],
+      child: buildMarkdown(context)
+    );
 }

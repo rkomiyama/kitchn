@@ -1,6 +1,7 @@
 import 'package:arcane/arcane.dart';
 import 'package:kitchn/widgets/user_provider.dart';
 
+import '../widgets/navbar.dart';
 import 'browse_recipes.dart';
 import 'my_recipes.dart';
 import 'cooking_session.dart';
@@ -19,6 +20,7 @@ class _MyHomePageState extends State<MyHomePage>  {
   Widget build(BuildContext context) {
     return UserProvider(builder: (context) =>
         Scaffold(
+          headers: [NavBar()],
             child: Center(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -1,5 +1,7 @@
 import 'package:arcane/arcane.dart';
 
+import '../widgets/navbar.dart';
+
 class JoinSessionScreen extends StatefulWidget {
   const JoinSessionScreen({super.key});
 
@@ -10,6 +12,9 @@ class JoinSessionScreen extends StatefulWidget {
 class _JoinSessionScreenState extends State<JoinSessionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context),));
+    return Scaffold(
+        headers: [NavBar()],
+        child: Center(child: Text("Join session!"))
+    );
   }
 }

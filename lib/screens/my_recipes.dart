@@ -3,6 +3,8 @@ import 'package:arcane_auth/service/auth_service.dart';
 import 'package:kitchn/screens/authenticate.dart';
 import 'package:serviced/serviced.dart';
 
+import '../widgets/navbar.dart';
+
 class MyRecipesScreen extends StatefulWidget {
   const MyRecipesScreen({super.key});
 
@@ -16,21 +18,20 @@ class _MyRecipesScreenState extends State<MyRecipesScreen> {
     if (!$signedIn) {
       return Authenticate();
     } else {
-      return SingleChildScrollView(
+      return Scaffold(
+        headers: [NavBar()],
+        child: SingleChildScrollView(
           child: Column(children: [
-            PrimaryButton(
-              child: Text("Go back"),
-              onPressed: () => Arcane.pop(context),
-            ),
             const Gap(16),
-            PrimaryButton(
+            OutlineButton(
               child: Text("Sign out"),
               onPressed: () => svc<AuthService>().signOut(context),
             ),
             const Gap(16),
             Card(child: Center(child: Text("Welcome!!!")))
           ])
+        )
       );
-    }
+  }
   }
 }

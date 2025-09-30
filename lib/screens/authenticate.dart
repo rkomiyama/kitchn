@@ -2,6 +2,7 @@ import 'package:arcane/arcane.dart';
 import 'package:kitchn/screens/register.dart';
 import 'package:kitchn/screens/sign_in.dart';
 
+import '../widgets/navbar.dart';
 import '../widgets/user_provider.dart';
 
 class Authenticate extends StatefulWidget {
@@ -21,6 +22,7 @@ class _AuthenticateState extends State<Authenticate> {
 
     return UserProvider(
       builder: (context) => FillScreen(
+        header: NavBar(),
         gutter: false,
         // header: const AnimalBar(
         //   showSignIn: false,

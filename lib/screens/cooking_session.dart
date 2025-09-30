@@ -1,5 +1,7 @@
 import 'package:arcane/arcane.dart';
 
+import '../widgets/navbar.dart';
+
 class CookingSessionScreen extends StatefulWidget {
   const CookingSessionScreen({super.key});
 
@@ -10,6 +12,9 @@ class CookingSessionScreen extends StatefulWidget {
 class _CookingSessionScreenState extends State<CookingSessionScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: PrimaryButton(child: Text("Go back"), onPressed: () => Arcane.pop(context),));
+    return Scaffold(
+        headers: [NavBar()],
+        child: Center(child: Text("Cooking session!"))
+    );
   }
 }
