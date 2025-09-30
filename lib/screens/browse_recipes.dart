@@ -56,6 +56,9 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                           thumbHash: recipeImageHash,
                           spanned: true,
                           leading: CardImage(image: Image.network(
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              return SizedBox(width: 150, height: 150);
+                            },
                               recipe.image,
                               fit:BoxFit.contain,
                               height: 150.0,
