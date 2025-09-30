@@ -1,4 +1,5 @@
 import 'package:arcane/arcane.dart';
+import 'package:arcane_auth/arcane_auth.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -7,11 +8,13 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Bar(leading: [
       Gap(8),
+      Icon(Icons.cooking_pot),
       Text("kitchn")],
       trailing: [
-        OutlineButton(
-          density: ButtonDensity.icon,
-          child: Icon(Icons.person_circle_outline_ionic)),
+        if ($signedIn)
+          OutlineButton(
+            density: ButtonDensity.icon,
+            child: Icon(Icons.person_circle_outline_ionic)),
       ],
     );
   }

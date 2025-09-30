@@ -16,7 +16,7 @@ class _MyRecipesScreenState extends State<MyRecipesScreen> {
   @override
   Widget build(BuildContext context) {
     if (!$signedIn) {
-      return Authenticate();
+      return Scaffold(headers: [NavBar()], child: Authenticate());
     } else {
       return Scaffold(
         headers: [NavBar()],

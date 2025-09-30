@@ -2,6 +2,7 @@ import 'package:arcane/arcane.dart';
 import 'package:arcane_auth/arcane_auth.dart';
 import 'package:arcane_fluf/init.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fa;
+import 'package:kitchn/screens/authenticate.dart';
 import 'package:kitchn/services/auth.dart';
 import 'package:serviced/serviced.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -51,15 +52,20 @@ class _MyAppState extends State<MyApp> {
     
     super.initState();
   }
+
+Widget _kitchnLoginBuilder(BuildContext context, List<AuthMethod> methods) =>
+    Authenticate();
   
   @override
   Widget build(BuildContext context) => AuthenticatedArcaneApp(
     authConfig: ArcaneAuthConfig(
+      allowAnonymous: true,
         authMethods: [
           AuthMethod.emailPassword
         ],
         onBind: svc<KitchnUserService>().bind,
-        onUnbind: svc<KitchnUserService>().unbind
+        onUnbind: svc<KitchnUserService>().unbind,
+        loginScreenBuilder: _kitchnLoginBuilder,
     ),
     title: 'kitchn',
     home: MyHomePage(),
