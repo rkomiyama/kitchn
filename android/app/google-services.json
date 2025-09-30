@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1075236772835",
+    "project_id": "kitchn-f4cf3",
+    "storage_bucket": "kitchn-f4cf3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075236772835:android:142be4a07768e529445ed6",
+        "android_client_info": {
+          "package_name": "com.example.kitchn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgteFgqXi5dQ9xxmGYlHAyx_6uhhnIWUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
