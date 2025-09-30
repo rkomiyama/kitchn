@@ -1,5 +1,6 @@
 import 'package:arcane/arcane.dart';
 import 'package:kitchn/screens/recipe/recipe_main.dart';
+import 'package:flutter_thumbhash/flutter_thumbhash.dart';
 
 import '../models/recipe.dart';
 import '../services/spoonacular.dart';
@@ -47,17 +48,23 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                       ]
                   ).pad(16),
                   ...?recipes?.mapList((recipe) =>
-                      SizedBox(width: 600, child: BasicCard(
-                        spanned: true,
-                        leading: CardImage(image: Image.network(
-                            recipe.image,
-                            fit:BoxFit.contain,
-                            height: 150.0,
-                            width: 150.0
-                        )),
-                        title: Text(recipe.title),
-                        onPressed: () => Arcane.push(context, RecipeMainScreen(recipe: recipe)),
-                      )).withMargin(all: 8),
+                    FutureBuilder(
+                      future: recipe.getImageHash(),
+                      builder: (context, snapshot) {
+                        String? recipeImageHash = snapshot.data;
+                        return BasicCard(
+                          thumbHash: recipeImageHash,
+                          spanned: true,
+                          leading: CardImage(image: Image.network(
+                              recipe.image,
+                              fit:BoxFit.contain,
+                              height: 150.0,
+                              width: 150.0
+                          )),
+                          title: Text(recipe.title),
+                          onPressed: () => Arcane.push(context, RecipeMainScreen(recipe: recipe)),
+                        ).withMargin(all: 8);
+                      })
                   ),
                 ]
             )
