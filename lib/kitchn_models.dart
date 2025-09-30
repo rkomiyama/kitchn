@@ -1,6 +1,7 @@
 import 'package:fire_crud/fire_crud.dart';
 import 'package:kitchn/models/user/user.dart';
-import 'package:kitchn/services/auth.dart';
+
+import 'gen/artifacts.gen.dart';
 
 void registerCrud() {
   $crud
@@ -8,5 +9,5 @@ void registerCrud() {
         collection: "user",
         model: User(),
         toMap: (m) => m.toMap(),
-        fromMap: (m) => $user.fromMap(m)));
+        fromMap: (m) => $User.fromMap(m)));
 }

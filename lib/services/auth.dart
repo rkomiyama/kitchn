@@ -24,6 +24,13 @@ UserPrivate get $settings => svc<KitchnUserService>().$settings;
 
 class KitchnUserService extends ArcaneUserService<User, UserCapabilities, UserPrivate> {
   @override
+  Future<void> bind(UserMeta user) async {
+    print("Bound? ");
+    super.bind(user);
+    
+  }
+  
+  @override
   User createUserModel(UserMeta meta) => User();
 
   @override

@@ -50,7 +50,7 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                       SizedBox(width: 600, child: BasicCard(
                         spanned: true,
                         leading: CardImage(image: Image.network(
-                            recipe.imageUrl,
+                            recipe.image,
                             fit:BoxFit.contain,
                             height: 150.0,
                             width: 150.0

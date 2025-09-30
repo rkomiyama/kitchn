@@ -3,8 +3,6 @@ import 'package:arcane_auth/service/auth_service.dart';
 import 'package:kitchn/screens/authenticate.dart';
 import 'package:serviced/serviced.dart';
 
-import '../services/auth.dart';
-
 class MyRecipesScreen extends StatefulWidget {
   const MyRecipesScreen({super.key});
 
