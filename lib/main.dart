@@ -2,6 +2,7 @@ import 'package:arcane/arcane.dart';
 
 import 'screens/home.dart';
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     'kitchn',
     const MyApp()
