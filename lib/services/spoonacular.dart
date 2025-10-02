@@ -7,7 +7,7 @@ import 'package:kitchn/auth/secrets.dart';
 import '../gen/artifacts.gen.dart';
 import '../models/recipe.dart';
 
-Future<List<Recipe>> getRandomRecipes() async {
+Future<List<Recipe>?> getRandomRecipes() async {
   Uri requestUrl = Uri.https(
       'api.spoonacular.com',
       'recipes/random',
@@ -16,13 +16,18 @@ Future<List<Recipe>> getRandomRecipes() async {
         "number": "10"
       }
   );
-  List<Recipe> recipes = [];
   http.Response response = await http.get(requestUrl);
-  final recipesList = jsonDecode(response.body);
-  recipesList['recipes'].forEach((recipe) {
-    recipe['summary'] = html2md.convert(recipe['summary']);
-    recipes.add($Recipe.fromMap(recipe));
-  });
-
-  return recipes;
+  final recipesList = await jsonDecode(response.body);
+  final recipesData = recipesList['recipes'];
+  final futures = recipesData?.map<Future<Recipe>>((recipe) async {
+    try {
+      recipe['summary'] = html2md.convert(recipe['summary']);
+      recipe['imageHash'] = await Recipe.getImageHash(recipe['image']);
+      return $Recipe.fromMap(recipe);
+    } catch (e) {
+      // Still return recipe data anyways
+      return $Recipe.fromMap(recipe);
+    }
+  }).toList();
+  return Future.wait(futures);
 }

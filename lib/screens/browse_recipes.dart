@@ -5,8 +5,6 @@ import '../models/recipe.dart';
 import '../services/spoonacular.dart';
 import '../widgets/navbar.dart';
 
-List<Recipe>? recipes;
-
 class BrowseRecipesScreen extends StatefulWidget {
   const BrowseRecipesScreen({super.key});
 
@@ -14,23 +12,27 @@ class BrowseRecipesScreen extends StatefulWidget {
   State<BrowseRecipesScreen> createState() => _BrowseRecipesScreenState();
 }
 
+class RecipeCache {
+  static List<Recipe>? recipes = [];
+}
+
 class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
+  late Future<List<Recipe>?> loadedOnce;
+
   @override
   void initState() {
     super.initState();
 
-    if (recipes == null) {
-      _loadRandomRecipes();
+    if (RecipeCache.recipes == null || RecipeCache.recipes!.isEmpty) {
+      loadedOnce = getRandomRecipes();
+    } else {
+      loadedOnce = Future.value(RecipeCache.recipes);
     }
   }
 
-  void _loadRandomRecipes() async {
-    if (recipes == null || recipes != []) {
-      recipes = [];
-    }
-    recipes = await getRandomRecipes();
+  Future<void> refreshRecipes() async {
     setState(() {
-      recipes;
+      loadedOnce = getRandomRecipes();
     });
   }
 
@@ -44,31 +46,46 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Center(child: PrimaryButton(child: Text("Refresh"), onPressed: () => _loadRandomRecipes())),
+                        Center(child: OutlineButton(child: Text("Refresh"), onPressed: () { refreshRecipes();})),
                       ]
                   ).pad(16),
-                  ...?recipes?.mapList((recipe) =>
-                    FutureBuilder(
-                      future: recipe.getImageHash(),
-                      builder: (context, snapshot) {
-                        String? recipeImageHash = snapshot.data;
-                        return BasicCard(
-                          thumbHash: recipeImageHash,
-                          spanned: true,
-                          leading: CardImage(image: Image.network(
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                              return SizedBox(width: 150, height: 150);
-                            },
-                              recipe.image,
-                              fit:BoxFit.contain,
-                              height: 150.0,
-                              width: 150.0
-                          )),
-                          title: Text(recipe.title),
-                          onPressed: () => Arcane.push(context, RecipeMainScreen(recipe: recipe)),
-                        ).withMargin(all: 8);
-                      })
-                  ),
+                    FutureBuilder<List<Recipe>?>(future: loadedOnce, builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          RecipeCache.recipes = snapshot.data;
+                        }
+                        if (RecipeCache.recipes!.isNotEmpty) {
+                          return Column(children: <Widget>[
+                            ...?RecipeCache.recipes?.mapList((recipe) =>
+                                BasicCard(
+                                  thumbHash: recipe.imageHash,
+                                  spanned: true,
+                                  leading: CardImage(image: Image.network(
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return SizedBox(
+                                            width: 150, height: 150);
+                                      },
+                                      recipe.image,
+                                      fit: BoxFit.contain,
+                                      height: 150.0,
+                                      width: 150.0
+                                  )),
+                                  title: Text(recipe.title),
+                                  onPressed: () =>
+                                      Arcane.push(context,
+                                          RecipeMainScreen(recipe: recipe)),
+                                ).withMargin(all: 8))
+                          ]);
+                        } else {
+                          return Center(child: Text("No data..."));
+                        }
+                      } else {
+                        return Center(child: Text("Loading..."));
+                      }
+                    })
+
                 ]
             )
         )

@@ -13,14 +13,16 @@ class Recipe {
   final String title;
   final String image;
   final String summary;
+  final String imageHash;
 
   const Recipe({
     required this.title,
     required this.image,
     required this.summary,
+    required this.imageHash,
   });
 
-  Future<ui.Image> resizeUiImage(ui.Image resizeImage, int targetWidth, int targetHeight) async {
+  static Future<ui.Image> resizeUiImage(ui.Image resizeImage, int targetWidth, int targetHeight) async {
     final byteData = await resizeImage.toByteData(format: ui.ImageByteFormat.png);
     final Uint8List bytes = byteData!.buffer.asUint8List();
 
@@ -33,10 +35,23 @@ class Recipe {
     return frame.image;
   }
 
-  Future<String> getImageHash() async {
-    final response = await http.get(Uri.parse(image));
+  static Future<String> getImageHash(String imageUrl) async {
+    final http.Response response;
+    try {
+      response = await http.get(Uri.parse(imageUrl));
+
+      if (response.statusCode == 200 ) {
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
     final Uint8List memoryImage = response.bodyBytes;
-    final ui.Image decodedImage = await decodeImageFromList(memoryImage);
+    final ui.Image decodedImage;
+    try {
+      decodedImage = await decodeImageFromList(memoryImage);
+    } catch (e) {
+      throw Exception(e);
+    }
     final resizedImage = await resizeUiImage(decodedImage, 100, 100);
 
     final ByteData? byteData = await resizedImage.toByteData(

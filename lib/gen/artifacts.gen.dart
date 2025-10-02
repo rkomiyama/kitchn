@@ -7,7 +7,7 @@
 // ignore_for_file: unused_element
 import "package:kitchn/models/user/user.dart";import "package:kitchn/models/user/user_private.dart";import "package:kitchn/models/user/user_capabilities.dart";import "package:kitchn/models/user/settings.dart";import "package:kitchn/models/recipe.dart";import "package:artifact/artifact.dart";import "dart:core";import "package:kitchn/models/user/user_role.dart";import "package:kitchn/models/user/user_grant.dart";
 typedef _0=ArtifactCodecUtil;typedef _1=Map<String, dynamic>;typedef _2=List<String>;typedef _3=String;typedef _4=dynamic;typedef _5=int;typedef _6=User;typedef _7=UserPrivate;typedef _8=UserCapabilities;typedef _9=Settings;typedef _a=Recipe;typedef _b=DateTime;typedef _c=bool;typedef _d=ArgumentError;typedef _e=Set;typedef _f=List;typedef _g=UserGrant;typedef _h=UserRole;typedef _i=Set<UserGrant>;typedef _j=List<dynamic>;
-const _2 _S=['username','lastOnline','email','settings','acceptedTerms','Missing required UserPrivate."email" in map ','role','grants','suspendedUntil','themeMode','title','image','summary','Missing required Recipe."title" in map ','Missing required Recipe."image" in map ','Missing required Recipe."summary" in map '];const _j _V=["anonymous",Settings(),false,UserRole.user,<_g>{},"system"];const _c _T=true;const _c _F=false;const _5 _ = 0;
+const _2 _S=['username','lastOnline','email','settings','acceptedTerms','Missing required UserPrivate."email" in map ','role','grants','suspendedUntil','themeMode','title','image','summary','imageHash','Missing required Recipe."title" in map ','Missing required Recipe."image" in map ','Missing required Recipe."summary" in map ','Missing required Recipe."imageHash" in map '];const _j _V=["anonymous",Settings(),false,UserRole.user,<_g>{},"system"];const _c _T=true;const _c _F=false;const _5 _ = 0;
 extension $User on _6{
   _6 get _H=>this;
   _3 toJson({bool pretty=_F})=>_0.j(pretty, toMap);
@@ -75,12 +75,12 @@ extension $Recipe on _a{
   _3 toToml()=>_0.u(toMap);
   _3 toXml({bool pretty=_F})=>_0.z(pretty,toMap);
   _3 toProperties()=>_0.h(toMap);
-  _1 toMap(){_;return <_3, _4>{_S[10]:_0.ea(title),_S[11]:_0.ea(image),_S[12]:_0.ea(summary),}.$nn;}
+  _1 toMap(){_;return <_3, _4>{_S[10]:_0.ea(title),_S[11]:_0.ea(image),_S[12]:_0.ea(summary),_S[13]:_0.ea(imageHash),}.$nn;}
   static _a fromJson(String j)=>fromMap(_0.o(j));
   static _a fromYaml(String j)=>fromMap(_0.v(j));
   static _a fromToml(String j)=>fromMap(_0.t(j));
   static _a fromProperties(String j)=>fromMap(_0.g(j));
-  static _a fromMap(_1 r){_;_1 m=r.$nn;return _a(title: m.$c(_S[10])? _0.da(m[_S[10]], _3) as _3:(throw _d('${_S[13]}$m.')),image: m.$c(_S[11])? _0.da(m[_S[11]], _3) as _3:(throw _d('${_S[14]}$m.')),summary: m.$c(_S[12])? _0.da(m[_S[12]], _3) as _3:(throw _d('${_S[15]}$m.')),);}
-  _a copyWith({_3? title,_3? image,_3? summary,})=>_a(title: title??_H.title,image: image??_H.image,summary: summary??_H.summary,);
+  static _a fromMap(_1 r){_;_1 m=r.$nn;return _a(title: m.$c(_S[10])? _0.da(m[_S[10]], _3) as _3:(throw _d('${_S[14]}$m.')),image: m.$c(_S[11])? _0.da(m[_S[11]], _3) as _3:(throw _d('${_S[15]}$m.')),summary: m.$c(_S[12])? _0.da(m[_S[12]], _3) as _3:(throw _d('${_S[16]}$m.')),imageHash: m.$c(_S[13])? _0.da(m[_S[13]], _3) as _3:(throw _d('${_S[17]}$m.')),);}
+  _a copyWith({_3? title,_3? image,_3? summary,_3? imageHash,})=>_a(title: title??_H.title,image: image??_H.image,summary: summary??_H.summary,imageHash: imageHash??_H.imageHash,);
 }
 
