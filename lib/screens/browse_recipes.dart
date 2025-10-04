@@ -50,10 +50,8 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                       ]
                   ).pad(16),
                     FutureBuilder<List<Recipe>?>(future: loadedOnce, builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (snapshot.hasData) {
-                          RecipeCache.recipes = snapshot.data;
-                        }
+                      if (snapshot.hasData) {
+                        RecipeCache.recipes = snapshot.data;
                         if (RecipeCache.recipes!.isNotEmpty) {
                           return Column(children: <Widget>[
                             ...?RecipeCache.recipes?.mapList((recipe) =>

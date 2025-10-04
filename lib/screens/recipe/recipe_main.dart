@@ -40,6 +40,12 @@ class _RecipeMainScreenState extends State<RecipeMainScreen> {
           title: Center(child: Text("kitchn")),
         ),
       ],
-      child: buildMarkdown(context)
+      child: SingleChildScrollView(
+        child: Column (
+          children: <Widget>[
+            buildMarkdown(context)
+          ],
+        )
+      )
     );
 }
