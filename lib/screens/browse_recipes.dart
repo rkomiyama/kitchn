@@ -70,7 +70,14 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                                       height: 150.0,
                                       width: 150.0
                                   )),
-                                  title: Text(recipe.title),
+                                  title: SizedBox(
+                                    width: 500.0,
+                                    child: OverflowMarquee(
+                                      child: Text(
+                                        recipe.title
+                                      )
+                                    )
+                                  ),
                                   onPressed: () =>
                                       Arcane.push(context,
                                           RecipeMainScreen(recipe: recipe)),

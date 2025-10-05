@@ -13,7 +13,7 @@ Future<List<Recipe>?> getRandomRecipes() async {
       'recipes/random',
       {
         "apiKey": spoonacularSecretKey,
-        "number": "10"
+        "number": "20"
       }
   );
   http.Response response = await http.get(requestUrl);
