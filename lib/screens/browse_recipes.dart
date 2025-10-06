@@ -49,48 +49,42 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                         Center(child: OutlineButton(child: Text("Refresh"), onPressed: () { refreshRecipes();})),
                       ]
                   ).pad(16),
-                    FutureBuilder<List<Recipe>?>(future: loadedOnce, builder: (context, snapshot) {
-                      if (snapshot.hasData) {
+                  FutureBuilder<List<Recipe>?>(
+                    future: loadedOnce,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      // } else if (snapshot.hasError) {
+                      //   return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                         RecipeCache.recipes = snapshot.data;
-                        if (RecipeCache.recipes!.isNotEmpty) {
-                          return Column(children: <Widget>[
-                            ...?RecipeCache.recipes?.mapList((recipe) =>
-                                BasicCard(
-                                  thumbHash: recipe.imageHash,
-                                  spanned: true,
-                                  leading: CardImage(image: Image.network(
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        return SizedBox(
-                                            width: 150, height: 150);
-                                      },
-                                      recipe.image,
-                                      fit: BoxFit.contain,
-                                      height: 150.0,
-                                      width: 150.0
-                                  )),
-                                  title: SizedBox(
-                                    width: 500.0,
-                                    child: OverflowMarquee(
-                                      child: Text(
-                                        recipe.title
-                                      )
-                                    )
-                                  ),
-                                  onPressed: () =>
-                                      Arcane.push(context,
-                                          RecipeMainScreen(recipe: recipe)),
-                                ).withMargin(all: 8))
-                          ]);
-                        } else {
-                          return Center(child: Text("No data..."));
-                        }
+                        return Column(
+                          children: RecipeCache.recipes!.map((recipe) => BasicCard(
+                            thumbHash: recipe.imageHash,
+                            spanned: true,
+                            leading: CardImage(
+                              image: Image.network(
+                                recipe.image,
+                                fit: BoxFit.contain,
+                                height: 150,
+                                width: 150,
+                                errorBuilder: (_, __, ___) => const SizedBox(width: 150, height: 150),
+                              ),
+                            ),
+                            title: SizedBox(
+                              width: 500,
+                              child: OverflowMarquee(child: Text(recipe.title)),
+                            ),
+                            onPressed: () => Arcane.push(context, RecipeMainScreen(recipe: recipe)),
+                          ).withMargin(all: 8)).toList(),
+                        );
                       } else {
-                        return Center(child: Text("Loading..."));
+                        return const Center(child: Text('No data...'));
                       }
-                    })
-
+                    },
+                  )
                 ]
             )
         )

@@ -26,6 +26,7 @@ Future<List<Recipe>?> getRandomRecipes() async {
       return $Recipe.fromMap(recipe);
     } catch (e) {
       // Still return recipe data anyways
+      recipe['imageHash'] = 'H3IFHI4ri5RQpWdCen0rUPLtCQ';
       return $Recipe.fromMap(recipe);
     }
   }).toList();
