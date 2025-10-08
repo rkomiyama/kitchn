@@ -56,8 +56,6 @@ class _BrowseRecipesScreenState extends State<BrowseRecipesScreen> {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      // } else if (snapshot.hasError) {
-                      //   return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                         RecipeCache.recipes = snapshot.data;
                         return Column(
